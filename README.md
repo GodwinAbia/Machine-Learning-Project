@@ -7,7 +7,6 @@ It includes:
 - **Exploratory Data Analysis (EDA)** in notebooks.
 - A **modular training pipeline** (`src/`) for ingestion, transformation, and model training.
 - A **Flask web app** (`application.py`) for interactive prediction.
-- Deployment wiring for **AWS Elastic Beanstalk**.
 
 The best-performing model in this project is:
 
