@@ -89,6 +89,64 @@ This project follows a simple but production-oriented data and code architecture
    - Uses `CustomData` (in `predict_pipeline.py`) to convert form inputs into a pandas DataFrame consistent with training features.
 
 ---
+## Modeling Approach
+
+### Target
+
+- **Target variable:** `math score`
+
+### Features
+
+- **Numeric**
+  - `reading score`
+  - `writing score`
+
+- **Categorical**
+  - `gender`
+  - `race/ethnicity`
+  - `parental level of education`
+  - `lunch`
+  - `test preparation course`
+
+### Preprocessing
+
+All preprocessing is implemented using **pipeline-based transformations** in scikit-learn:
+
+- Imputation for missing values:
+  - **Numeric:** median
+  - **Categorical:** most frequent
+- One-hot encoding for categorical variables
+- Standardization for:
+  - Numeric features
+  - One-hot encoded features (using `StandardScaler(with_mean=False)`)
+
+### Candidate Models
+
+All models are trained and evaluated on a **common preprocessed feature space** and, in the production pipeline, tuned using `GridSearchCV`:
+
+- Linear Regression  
+- Decision Tree Regressor  
+- Random Forest Regressor  
+- Gradient Boosting Regressor  
+- XGBoost Regressor  
+- CatBoost Regressor  
+- AdaBoost Regressor  
+
+### Metric
+
+- **Primary evaluation metric:** R² score
+- **Validation strategy:**  
+  - 80/20 train–test split  
+  - R² computed on the held-out **20% test set**
+
+### Final Result
+
+- **Best model:** Linear Regression  
+- **Test R²:** **0.8804**
+
+This indicates that the linear model explains approximately **88% of the variance** in math scores on unseen data, given the selected set of features and preprocessing steps.
+
+---
 
 ## Repository Structure
 
