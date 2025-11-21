@@ -1,1 +1,19 @@
-<h1>Welcome<h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Student Performance Predictor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+    <h1>Welcome to the Student Performance Predictor</h1>
+    <p>
+        This app predicts a student's math score based on their background
+        and other test scores.
+    </p>
+
+    <p>
+        <a href="{{ url_for('predict_datapoint') }}">Go to prediction form</a>
+    </p>
+</body>
+</html>
