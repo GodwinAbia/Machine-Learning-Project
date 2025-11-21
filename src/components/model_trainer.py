@@ -182,7 +182,7 @@ class ModelTrainer:
 
             logging.info(f"Final test R² of the saved model: {final_r2:.4f}")
 
-            # ✅ Return BOTH model name and test R²
+            # Return BOTH model name and test R²
             return best_model_name, float(final_r2)
 
         except Exception as e:
