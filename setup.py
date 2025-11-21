@@ -1,22 +1,49 @@
-from setuptools import find_packages,setup
+"""
+Project packaging configuration.
+
+This file is used by setuptools to install the project and its dependencies.
+Typical usage:
+    pip install -e .
+"""
+
 from typing import List
 
+from setuptools import find_packages, setup
 
-HYPEN_E_DOT = "-e ."
+#Sometimes used in requirements.txt to trigger editable installs
+HYPHEN_E_DOT = "-e ."
 
 
-def get_requirements(file_path:str)->List[str]:
+def get_requirements(file_path: str) -> List[str]:
     """
-    this function will return the list of requirements
+    Read a requirements file and return a list of packages.
+
+    Args:
+        file_path: Path to the requirements file (e.g. "requirements.txt").
+
+    Returns:
+        A list of requirement strings suitable for `install_requires`.
+
+    Notes:
+        - Strips newlines and surrounding whitespace.
+        - Ignores empty lines and comment lines starting with "#".
+        - Removes the special editable install token "-e ." if present.
     """
+    requirements: List[str] = []
 
-    requirements = []
-    with open(file_path) as file_obj:
-        requirements = file_obj.readlines()
-        requirements = [req.replace("\n","") for req in requirements]
+    with open(file_path, encoding="utf-8") as file_obj:
+        for line in file_obj:
+            req = line.strip()
 
-        if HYPEN_E_DOT in requirements:
-            requirements.remove(HYPEN_E_DOT)
+            #Skip empty lines and comments
+            if not req or req.startswith("#"):
+                continue
+
+            if req == HYPHEN_E_DOT:
+                #This is used for editable installs, not an actual dependency
+                continue
+
+            requirements.append(req)
 
     return requirements
 
